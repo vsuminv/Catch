@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catch!</title>
+    <link href="{% static 'image/Logo-96x96.png' %}" sizes="96x96" rel="shortcut icon" type="image/png">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+
+</head>
+<body>
+        <div class="HeaderLine">
+            <div>
+              <ul class="nav">
+                <li class="nav-item"><a href="{% url 'mentor' %}" class="HeaderNav">Mentoring</a></li>
+                <li class="nav-item"><a href="{% url 'list'%}" class="HeaderNav">Community</a></li>
+                <li class="nav-item"><a href="{% url 'spellCheck' %}" class="HeaderNav">Cover letter</a></li>
+              </ul>
+            </div>
+
+              <div class="HeaderLogo">
+                <a href="#" class="Logo"></a>
+              </div>
+
+              <div class="header-right">
+                      {% if request.session.user %}
+                      <div class="loginUser_userWrapper">
+                        <!-- onerror="this.onerror=null; this.src='image/user.jpg';" -->
+                        <img class="loginUser_userImg" src="{{request.session.img}}" id="user_img"  alt="" onerror="this.onerror=null; this.src='image/user.jpg';" >
+                        <svg stroke="currentColor" onclick="dp_menu()" fill="currentColor" stroke-width="0" viewbox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"></path></svg>
+                        <div class="dropdownBar_menuWrapper" id="drop-content">
+                          <ul class="dropdownBar_menu">
+{#                              <a id="{{ mentor.user_id }}" href="{% url 'mentor_chatrooms' {{ request.session.user }} {{ request.session.user }} %}">#}
+                            <li class="dropdownBar_menuItem"><a href="{% url 'mentor_chatrooms' request.session.user request.session.user %}" style="display: inline-block;">채팅방</a></li>
+                            <li class="dropdownBar_menuItem"><a href="{% url 'mypost' %}" style="display: inline-block;">내 작성글</a></li>
+                            <li class="dropdownBar_menuItem"><a href="{% url 'mypage' %}" style="display: inline-block;">설정</a></li>
+                            <li class="dropdownBar_menuItem"><a href="{% url 'logout' %}" style="display: inline-block;">로그아웃</a></li>
+                          </ul>
+                        </div>
+                      </div>
+                      {% else %}
+                      <a href="{% url 'login' %}"><button class="header-btn">Login</button></a>
+                      <a href="{% url 'join_select' %}"><button class="header-btn">Join</button></a>
+                      {% endif %}
+              </div>
+        </div>
+</body>
+
+      <!-- Javascript -->
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script>
+  function dp_menu(){ /** 로그인시 드롭다운 메뉴 보이는 기능 **/
+
+    let click = document.getElementById("drop-content");
+    if(click.style.display === "none") {
+      click.style.display = "block";
+    }else{
+      click.style.display = "none";
+    }
+
+  }
+</script>
+
+</html>

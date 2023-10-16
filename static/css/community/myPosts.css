@@ -1,0 +1,212 @@
+
+.tabs{
+  /* margin-left: 30px; */
+}
+/* 탭 스타일 */
+.tab_item {
+  /* width: calc(100%/3); */
+  width: 294px;
+  height: 50px;
+  border-bottom: 3px solid #333333;
+  background-color: #f8f8f8;
+  line-height: 50px;
+  font-size: 16px;
+  text-align: center;
+  color: #333333;
+  /* display: block; */
+  float: left;
+  text-align: center;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+.tab_item:hover {
+  opacity: 0.75;
+}
+
+/* 라디오 버튼 UI삭제*/
+input[name="tab_item"] {
+  display: none;
+}
+
+/* 탭 컨텐츠 스타일 */
+.tab_content {
+  width: 89%;
+  display: none;
+  /* padding: 40px 40px 0; */
+  padding: 40px 0px;
+  clear: both;
+  overflow: hidden;
+}
+
+
+/* 선택 된 탭 콘텐츠를 표시 */
+#mentor_mentee:checked ~ #mentor_mentee_content,
+#mentor:checked ~ #mentor_content,
+#mentee:checked ~ #mentee_content,
+#study:checked ~ #study_content
+ {
+  display: block;
+}
+
+/* 선택된 탭 스타일 */
+.tabs input:checked + .tab_item {
+  background-color: #333333;
+  color: #fff;
+}
+
+/* My post */
+.myPosts_pageWrapper{
+  padding-top: 5rem;
+}
+.myPosts_myLikes{
+  width: 1100px;
+  margin: 0px auto;
+  min-height: 100vh;
+}
+@media screen and (max-width: 1919px){
+.myPosts_myLikes__2p117 {
+    width: 1200px;
+}
+}
+@media screen and (max-width: 1440px){
+.myPosts_myLikes__2p117 {
+    width: 780px;
+}
+}
+.myPosts_main{
+  margin-left: 110px;
+  display: flex;
+  flex-direction: column;
+}
+.myPosts_category{
+  display: flex;
+  margin-bottom: 2rem;
+}
+.myPosts_category__item{
+  width: 100%;
+  /* margin-left: 80px; */
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+.myPosts_text{
+  margin-left: 0.5rem;
+  color: #90CAF9;
+}
+
+.myPosts_select{
+  /* margin-left: 80px; */
+}
+
+.mypost_svg{
+  color: #90CAF9;
+}
+/* test2 */
+.myPosts_line{
+  width: 100%;
+}
+
+.myPosts_content{
+  /* width: 90%; */
+  height: 130px;
+  border: 3px solid gainsboro;
+  padding: 23px 23px 23px 23px;
+  border-radius: 22px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+.myPosts_content_bg{
+  /* display: flex;
+  flex-direction: row;
+  justify-content: space-between; */
+  cursor: pointer;
+}
+
+.myPosts_content_main:hover{
+  color: black;
+}
+
+.myPost_info{
+  padding: 20px 0 0 0;
+  margin: 0 auto;
+  /* display: flex; */
+  /* flex-direction: column; */
+}
+
+.post_date{
+  /* margin-bottom: 20px; */
+  font-size: 0.9rem;
+    font-weight: 700;
+  display: flex;
+  /* align-items: center; */
+  
+}
+
+.myPosts_cotent_info{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.myPost_content_info2{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.contenet_up,.contenet_del{
+  border: none;
+  background-color: white;
+  color: #2D9BF0;
+}
+.post_title{
+  width: 650px;
+  /* color:#6BF7C5; */
+
+  font-size: 1.5rem;
+    font-weight: 600;
+    /* margin-bottom: 15px; */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    word-break: break-all;
+    overflow: hidden;
+}
+
+.study_commutitle{
+  width: 650px;
+  /* color:#6BF7C5; */
+
+  font-size: 1.5rem;
+    font-weight: 600;
+    /* margin-bottom: 15px; */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    word-break: break-all;
+    overflow: hidden;
+}
+
+.post_cotent{
+  width: 680px;
+  display: flex;
+  align-items: center;
+  /* margin-left: 100px; */
+  font-size: 1.25rem;
+    /* line-height: 36px; */
+    margin-bottom: 15px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    word-break: break-all;
+    overflow: hidden;
+    color: gray;
+}
+
+

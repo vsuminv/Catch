@@ -1,0 +1,127 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catch!</title>
+    <link href="{% static 'image/Logo-96x96.png' %}" sizes="96x96" rel="shortcut icon" type="image/png">
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+    <link rel="stylesheet" href="{% static 'css/community/new_writing.css'%}">
+
+
+</head>
+<body>
+<!-- header -->
+{% include "user/header.html" %}
+<div class="recruitment_background">
+    <form method="POST" action="" class="mt-5" onsubmit="return check()">
+        <div class="recruitment_info_bg">
+            {% if request.session.communityid == 4 %}
+            <div class="recruitment_title">
+                <i class="fa-sharp fa-solid fa-circle-check"></i><span class="title">모집 정보를 입력해주세요.</span>
+            </div>
+            <div class="recruitment_line"></div>
+            <div class="recruitment_list_bg">
+                <ul class="recruitment_list">
+                    <div class="recruitment_li">
+                        <li class="recruitment_item">진행 방식</li>
+                        <select id="expected" class="expected" name="process">
+                            <option id="" value="">진행방식 선택</option>
+                            <option id="on" value="온라인">온라인</option>
+                            <option id="off" value="오프라인">오프라인</option>
+                        </select>
+                    </div>
+                    <div class="recruitment_li">
+                        <li class="recruitment_item">모집 인원</li>
+                        <select id="people" class="people" name="members">
+                            <option id="" value="">모집 인원 선택</option>
+                            <option id="undifined" value="undifined">인원 미정</option>
+                            <option id="one" value="one">1명</option>
+                            <option id="two" value="two">2명</option>
+                            <option id="three" value="three">3명</option>
+                            <option id="four" value="four">4명</option>
+                            <option id="five" value="five">5명</option>
+                            <option id="six" value="six">6명</option>
+                            <option id="seven" value="seven">7명</option>
+                            <option id="eight" value="eight">8명</option>
+                            <option id="nine" value="nine">9명</option>
+                            <option id="ten" value="ten">10명 이상</option>
+                        </select>
+                    </div>
+                    <div class="recruitment_li">
+                        <li class="recruitment_item">시작 예정</li>
+                        <input type="date" class="start_date" id = "start_date" name="start_date" value="start_date"></input>
+                    </div>
+                    <div class="recruitment_li">
+                        <li class="recruitment_item">연락 방법</li>
+                        <div class="calender">
+                            <input type="text" id="link" name="contact" class="link" placeholder="연락 방법을 입력해주세요."/>
+                        </div>
+                    </div>
+                    <div class="recruitment_li">
+                        <li class="recruitment_item">예상 기간</li>
+                        <select id="month" class="month" name="study_period" >
+                            <option id="" value="">예상 기간 선택</option>
+                            <option id="one month" value="one month">1개월</option>
+                            <option id="two month" value="two month">2개월</option>
+                            <option id="three month" value="three month">3개월</option>
+                            <option id="four month" value="four month">4개월</option>
+                            <option id="five month" value="five month">5개월</option>
+                            <option id="six month" value="six month">6개월 이상</option>
+                            <option id="regularly" value="regularly">정기</option>
+                        </select>
+                    </div>
+                    <div class="recruitment_li">
+                        <li class="recruitment_item">관련 태그</li>
+                        <div class="recruitment_tag">
+                            <input type="text" id="tag" name="tag" class="tag" placeholder="ex) 스터디, #알고리즘, #자바"/>
+                        </div>
+                    </div>
+                    <div class="recruitment_li">
+                        <li class="recruitment_item">모집기간 예정</li>
+                        <input type="date" id="due_date" name="due_date" class="due_date" value="due_date"
+                               placeholder="모집 마감일을 입력해주세요."></input>
+                    </div>
+            </div>
+            </ul>
+            {% endif %}
+            <div class="recruitment_title2">
+                <i class="fa-sharp fa-solid fa-circle-check"></i><span class="title">커뮤니티 및 스터디에 대한 내용을 자세히 작성해주세요.</span>
+            </div>
+            <div class="recruitment_line"></div>
+        </div>
+        <div id="main" class="container mt-5">
+            <div class="text-center">
+                {% csrf_token %}
+                {% for form in forms %}
+                <div class="form-group ">
+                    <label class="mt-3" for="{{ form.id_for_label }}">{{ form }}</label>
+
+                </div>
+                {% if field.errors %}
+                <span style="color: red;">{{ field.errors }}</span>
+            </div>
+            {% endif %}
+            {% endfor %}
+            <div class="recruitment_btn">
+                <button type="submit" class="style-btn-submit" id="style-btn">등록</button>
+                <button type="reset" class="style-btn-reset" ><a  href="{% url 'list' %}" class="cancle">취소</a></button>
+            </div>
+
+        </div>
+    </form>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+<script src="{% static 'js/form.js' %}"></script>
+
+</body>
+</html>

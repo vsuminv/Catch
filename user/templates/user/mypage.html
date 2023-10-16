@@ -1,0 +1,132 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catch!</title>
+    <link href="{% static 'image/Logo-96x96.png' %}" sizes="96x96" rel="shortcut icon" type="image/png">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+    <link rel="stylesheet" href="{% static 'css/mypage.css'%}">
+    <link rel="stylesheet" href="{% static 'css/global.css'%}">
+</head>
+
+<body>
+    
+    <!-- header -->
+    {% include "user/header.html" %}
+<main>
+    <div id="wrap">
+        <div id="container">
+            <div id="contents">
+                <div class="sub_page">
+                    <div class="inner_box">
+                        <aside class="side_bar" style="top: 0px;">
+                        <div class="profile_box">
+                            <div class="photo">
+                                <img class="loginUser_userImg" src="{{request.session.img}}" id="user_img"  alt="" onerror="this.onerror=null; this.src='image/user.jpg';" >
+                            </div>
+                            <p class="nickname">
+                                닉네임
+                            </p>
+                            <p class="mail">
+                                이메일
+                            </p>
+                            <div class="btn_box" style="margin-bottom:20px;">
+                                <span class="btn_23" style="width:42px;">멘토</span> <span class="btn_23" style="width:42px;">멘티</span>
+                            </div>
+                            <div class="previewProfile" onclick="previewProfile('def903c19fa01b914a23da38d8b43a20');">
+                                <span class="name" style="cursor:pointer;">멘티가 보는 내 프로필 보기</span>
+                            </div>
+                        </div>
+                        <nav class="menu">
+                        <ul>
+                            <li data-type="mento" class="on"><a href="javascript:void(0);" id="moveMyInfo">학력정보관리</a></li>
+                            <li data-type="mento"><a href="javascript:void(0);" id="profileInfo">프로필</a></li>
+                            <li data-type="mento"><a href="javascript:void(0);" id="moveWithdraw">컨텐츠 | 컨텐츠</a></li>
+                            <li><a href="javascript:void(0);" id="serviceGuide">컨텐츠</a></li>
+                            <li><a href="javascript:void(0);" id="moveNotice">컨텐츠</a></li>
+                            <li style="border-bottom:1px solid #f0f0f0;padding-bottom:5px;"><a href="javascript:void(0);" id="moveCustomerCenter">컨텐츠 | 컨텐츠</a></li>       
+                            <li data-type="integration" class="interMem"><a href="{% url 'withdrawal' %}" id="moveMembership">회원탈퇴</a></li>
+                        </ul>
+                        </nav>
+                        </aside>
+                        <section class="cont">
+                        <!-- <h2 class="tit_22 mb40">멘토 필수 정보</h2> -->
+                        <div class="sub_myinfo">
+                            <ul class="list">
+                                <li id="liAcademyBg" class="on">
+                                <a href="#self" id="academyBg">
+                                <span id="spanAcademyBg" class="state">ON</span>
+                                <span class="txt_box">
+                                <span class="name">학력</span>
+                                <span class="txt">멘토의 학력 정보</span>
+                                </span>
+                                </a>
+                                </li>
+                                <li id="liCertify" class="off">
+                                <a href={% url 'certify' %} id="certify">
+                                <span id="spanCertify" class="state">OFF</span>
+                                <span class="txt_box">
+                                <span class="name">인증</span>
+                                <span class="txt">대학교 학력인증 필수</span>
+                                </span>
+                                </a>
+                                </li>
+                                <li id="liLesson" class="off">
+                                <a href="#self" id="lesson">
+                                <span id="spanLesson" class="state">OFF</span>
+                                <span class="txt_box">
+                                <span class="name">과외</span>
+                                <span class="txt">수업 매칭을 위한 정보 입력 필요</span>
+                                </span>
+                                </a>
+                                </li>
+                                <li id="liMentoring01" class="on">
+                                <a href="#self" id="mentoring1">
+                                <span id="spanMentoring01" class="state">ON</span>
+                                <span class="txt_box">
+                                <span class="name">합격 사례</span>
+                                <span class="txt">멘토링을 위한 합격사례 입력 필요</span>
+                                </span>
+                                </a>
+                                <ul>
+                                    <li id="schoolRecord" class="off">
+                                    <a href="#self" id="record"><strong>생활기록부</strong></a>
+                                    </li>
+                                </ul>
+                                <ul>
+                                    <li id="introducRecord" class="off">
+                                    <a href="#self" id="record2"><strong>자기소개서</strong></a>
+                                    </li>
+                                </ul>
+                                </li>
+                                <li id="liMentoring02" class="off">
+                                <a href="#self" id="mentoring2">
+                                <span id="spanMentoring02" class="state">OFF</span>
+                                <span class="txt_box">
+                                <span class="name">학원 멘토링</span>
+                                <span class="txt">입력 시 멘토링 도움</span>
+                                </span>
+                                </a>
+                                </li>
+                            </ul>
+                        </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <!-- id : contents -->
+        </div>
+        <!-- id : container -->
+    </div>
+
+</main>
+</body>
+
+
+ <!-- Javascript -->
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+      
+</html>

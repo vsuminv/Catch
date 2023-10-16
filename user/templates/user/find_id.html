@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catch!</title>
+    <link href="{% static 'image/Logo-96x96.png' %}" sizes="96x96" rel="shortcut icon" type="image/png">
+	<link rel="stylesheet" href="{% static 'css/global.css'%}">
+	<link rel="stylesheet" href="{% static 'css/common.css'%}">
+</head>
+
+<body>
+
+	<div class="login_wrap_mo">
+		<div id="idFind" class="id_finder_wrap">
+			<h1 class="logo_mo"><img src="{% static 'image/Find_Logo.png' %}" alt=""></h1>
+			<div class="in_box">
+				<h2 class="title">아이디 찾기</h2>
+				<p class="comment">
+					가입하신 이름과 이메일을 입력해주세요.
+				</p>
+				<p class="mb10">
+					<span class="input_box"><input type="text" name="Name" placeholder="이름" maxlength="11"></span>
+				</p>
+				<p class="mb10">
+					<span class="input_box"><input type="text" name="phoneNumber" placeholder="전화번호" maxlength="11"></span>
+				</p>
+				<p class="mb10">
+					<span class="input_box"><input type="text" name="secretCode" disabled="disabled" placeholder="입력된 정보로 가입된 이메일은 입니다." maxlength="4"><span id="timer" class="timer"></span></span>
+				</p>
+				<div id="secretCode_err" class="error_txt" style="visibility:hidden;">
+					에러텍스트
+				</div>
+				<a href="#self" id="btn_certify" class="btn_confirm btn_48 btn_disabled">아이디 찾기</a>
+				<div class="integrationFindIdPw">
+					<img src="{% static 'image/ic_exclamation_mark.png' %}" alt="" class="integrationFindIdPwImg">
+					<div class="integrationFindIdPwGo">
+						<span class="integrationFindIdPwGoQ">비밀번호를 잊으셨나요?</span><span class="integrationFindIdPwGoBlue">비밀번호 찾기 <span>&gt;</span></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="idFindSuccess" class="id_finder_wrap" style="display: none;">
+		</div>
+		<div id="idFindFail" class="id_finder_wrap" style="display: none;">
+		</div>
+	</div>
+
+</body>
+</html>

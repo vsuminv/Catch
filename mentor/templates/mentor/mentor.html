@@ -1,0 +1,175 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.88.1">
+    <title>Catch!</title>
+    <link href="{% static 'image/Logo-96x96.png' %}" sizes="96x96" rel="shortcut icon" type="image/png">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/mentor/mentor_main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/mentor/mentor.css' %}">
+
+</head>
+
+<!-- header -->
+{% include "user/header.html" %}
+
+<body class="pg___instructors">
+    
+<!-- main -->
+<main class="container2" id="main">
+<div id="root">
+
+    <div class="rwd_mentoring">
+        <div class="choice_box">
+            <div>
+            <a href="#self" class="btn_type btn_pass"><span>합격유형 전체</span></a>
+            <a href="#self" class="btn_type btn_mentoring"><span>멘토링 전체</span></a>
+            </div>
+            <div><a href="#self" class="btn_choice">조건선택</a></div>
+        </div>
+                       
+
+        <section class="instructor_list_section">
+            <div class="content_palette" id="content_palette">
+                <div class="content_body">
+
+                    <!-- Right panel / Profile list -->
+
+                    <div class="panel_right">
+                        <div class="view">
+                            <div class="columns is-multiline is-mobile">
+                                <!-- Mentor -->
+                                     {% for mentor in mentorList %}
+                                <div class="column is-3-desktop is-4-tablet is-6-mobile">
+                                    <div class="mentor_card">
+                                        <div class="card-body">
+                                            <div class="mentor-image">
+                                                <figure class="image is-1by1">
+                                                    <img class="is-rounded"
+                                                         src="media/{{ mentor.img }}"
+                                                         alt="{{mentor.img}}"
+                                                         onerror="this.onerror=null; this.src='image/user.jpg';"
+                                                      >
+                                                </figure>
+                                            </div>
+                                            <div class="mentor-info">
+                                                <h2 class="mentor-title"> {{mentor.nickname}} </h2>
+                                            </div>
+                                        </div>
+                                        <div class="mentor-info">
+                                            <p class="mentor-username">{{mentor.school}} {{mentor.department}}</p>
+                                        </div>
+                                        <div class="mentor-info">
+                                            <p class="mentor-tag">#수시합격 #학생부종합</p>
+                                        </div>
+                                        <div class="card-bottom">
+                                            <div class="buttons">
+                                                <!-- Modal -->
+                                                <div id="modal" class="modal">                                                   
+                                                    <div class="modal_body" id="modal-body">
+                                                        <div class="modal_mentor_card">
+                                                            <div class="modal-card-body">
+                                                                <div class="modal-mentor-image">
+                                                                    <figure class="modal-image modla-is-1by1">
+                                                                        <img class="modal-is-rounded"
+                                                                             src="media/{{ mentor.img }}"
+                                                                             alt="{{mentor.img}}">
+                                                                    </figure>
+                                                                </div>
+                                                                <div class="mentor-info">
+                                                                    <h2 class="modal-mentor-title"> {{mentor.nickname}} </h2>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-department">
+                                                                학번 |<span class="modal-department-data">{{ mentor.student_id }}</span>
+                                                            </div>
+                                                            <div class="modal-department">
+                                                                학교 |<span class="modal-department-data">{{mentor.school}}</span>
+                                                            </div>
+                                                            <div class="modal-department">
+                                                                학과 |<span class="modal-department-data">{{mentor.department}}</span>
+                                                            </div>
+                                                            <div class="modal-department">
+                                                                재학여부 |<span class="modal-department-data">{{mentor.status}}</span>
+                                                            </div>
+                                                            <div class="modal-selftitle">
+                                                                자기소개
+                                                            </div>
+                                                            <div class="modal-selfcontent">
+                                                                {{mentor.intro_body}}
+                                                            </div>
+                                                            {% if chat_button %}
+                                                            <div class="modal-chat-btn-display">
+                                                      <a id="{{ mentor.user_id }}" href="{% url 'mentor_chatrooms' myEmail mentor.user_id %}"> <button id="{{ mentor.user_id }}" class="modal-chat-btn">채팅신청</button></a>
+                                                    <!--<a id="{{ mentor.user_id }}" href="/mentor_chatrooms/{{ myEmail }}/{{ id }}"> <button id="{{ mentor.user_id }}" class="modal-chat-btn">채팅신청</button></a>#}-->
+                                                            </div>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                    <button type="button" id="modal_btn_close" class="modal_btn_close"></button>
+                                                </div>
+                                                <!-- Modal end -->
+                                                <button id="btn-open-poopup" class="button e-mentoring btn-open-popup">상세정보</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>                        
+        </div>
+    </section>
+</div>
+
+<!--Top 버튼-->
+<footer id="rwd_footer">
+    <div class="pc_footer">
+            <a href="#self" class="btn_top">
+                <span>TOP</span>
+            </a>
+    </div>
+</footer>
+
+<!-- 조건 필터링 Modal 부분-->
+<div class="popup_all">
+	<div class="popup_type pass_type">
+		<div class="outter_box">
+			<div class="inner_box" style="height: 240px;">
+				<h2 class="title">합격유형 선택</h2>
+				<div class="in_box choice_area">
+					<label class="select_radiobox style_01 mb10"><input type="radio" name="passType" value="-1" checked="checked"><em></em><span>합격유형 전체</span></label>
+                    <label class="select_radiobox style_01 mb10"><input type="radio" name="passType" value="168"><em></em><span>수시합격</span></label>
+                    <label class="select_radiobox style_01 mb10"><input type="radio" name="passType" value="171"><em></em><span>정시합격</span></label>
+				</div>
+				<div class="btn_box">
+					<a href="#self" class="btn_40 gray btn_cancel" style="width:92px;">닫기</a>
+					<a href="#self" class="btn_40 btn_pass_type" style="width:216px;">적용하기</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+</main>
+</body>
+
+<!-- Javascript -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="{% static 'js/modal.js' %}"></script>
+<script src="{% static 'js/btn_top.js' %}"></script>
+<script src="{% static 'js/filtering.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</html>

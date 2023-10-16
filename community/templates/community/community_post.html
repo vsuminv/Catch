@@ -1,0 +1,221 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Catch!</title>
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <link href="{% static 'image/Logo-96x96.png' %}" sizes="96x96" rel="shortcut icon" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/community/community_post.css' %}">
+</head>
+<body>
+<!-- header -->
+{% include "user/header.html" %}
+<div class="community_background">
+    <div class="title_background">
+        {{ contentList.title }}
+    </div>
+    <div class="user_info_bg">
+        <div class="user_info_img">
+            <div class="userimg">
+                {% if contentList.user_id.img == '' %}
+                <img src="/media/images/Profile_photo.png" id="user_img" class="user_img"></img>
+                {% else %}
+                <img src="/media/{{ contentList.user_id.img }}" id="user_img" class="user_img"></img>
+                {% endif %}
+            </div>
+            <div class="user_info">
+                <span class="username">{{contentList.user_id.user_id}}</span>
+            </div>
+        </div>
+        {% if contentList.user_id.user_id == request.session.user %}
+            <div class="content_user">
+
+                {% if request.session.communityid == 4 %}
+                    <form action="{% url 'community_update' request.session.communityid contentList.study_id %}">
+                {% else %}
+                    <form action="{% url 'community_update' request.session.communityid contentList.board_id %}">
+                {% endif %}
+                <button class="update">수정</button>
+                </form>
+                {% if request.session.communityid == 4 %}
+                    <form action="{% url 'community_delete' request.session.communityid contentList.study_id %}">
+                {% else %}
+                    <form action="{% url 'community_delete' request.session.communityid contentList.board_id %}">
+                {% endif %}
+                <button class="delete">삭제</button>
+                </form>
+            </div>
+        {% endif %}
+
+    </div>
+    {% if request.session.communityid == 4 %}
+        <div class="recruitment_info">
+            <ul class="info">
+                <!-- <li class="recruitment_info_list">
+                <span class="recruitment_info_title">모집구분</span>
+                <span>{{contentList.study_case}}</span>
+            </li> -->
+                <li class="recruitment_info_list">
+                    <span class="recruitment_info_title">진행 방식</span>
+                    <span>{{ contentList.process }}</span>
+                </li>
+                <li class="recruitment_info_list">
+                    <span class="recruitment_info_title">모집 인원</span>
+                    <span>{{ contentList.members }}</span>
+                </li>
+                <li class="recruitment_info_list">
+                    <span class="recruitment_info_title">시작 예정</span>
+                    <span>{{ contentList.start_date }}</span>
+                </li>
+                <li class="recruitment_info_list">
+                    <span class="recruitment_info_title">모집 방법</span>
+                    <div class="recruitment_linktab"><a href="{{ contentList.contact }}" class="recruitment_link"
+                                                        target="_blank">{{ contentList.contact }}</a></div>
+                </li>
+                <li class="recruitment_info_list">
+                    <span class="recruitment_info_title">예상 기간</span>
+                    <span>{{ contentList.study_period }}</span>
+                </li>
+                <li class="recruitment_info_list">
+                    <span class="recruitment_info_title">관련 태그</span>
+                    <span>{{ contentList.tag }}</span>
+                </li>
+                <li class="recruitment_info_list">
+                    <span class="recruitment_info_title">모집 기간</span>
+                    <span>{{ contentList.due_date }}</span>
+                </li>
+            </ul>
+        </div>
+    {% endif %}
+    <div class="content_background">
+        <div class="content">
+            <div class="context">
+                {{ contentList.content|safe }}
+            </div>
+        </div>
+        <div class="comment_bg">
+            <div class="comment_cnt">{{ replyCount }}개의 댓글이 있습니다.</div>
+            {% if request.session.communityid == 4 %}
+            <form method="POST" action="{% url 'new_comment' request.session.communityid contentList.study_id %}"
+                  class="mt-2">
+        {% else %}
+            <form method="POST" action="{% url 'new_comment' request.session.communityid contentList.board_id %}"
+                  class="mt-2">
+        {% endif %}
+        {% csrf_token %}
+        <div class="comment_div_text_btn">
+            <div class="comment_textarea">
+                <textarea class="commnet" name="content" placeholder="댓글을 입력하세요."></textarea>
+            </div>
+            <div class="comment_btn">
+                <button class="btn_design">등록</button>
+            </div>
+        </div>
+        </form>
+           
+            <div class="comment_list_bg">
+                {% for reply in replyList %}
+                    <div class="comment_list">
+                        <div class="comment_div_user">
+                            <div class="comment_userimg">
+                                <div class="userimg">
+                                    {% if reply.user_id.img == '' %}
+                                        <img src="/media/images/Profile_photo.png" id="user_img" class="user_infoimage"></img>
+                                    {% else %}
+                                        <img src="/media/{{ reply.user_id.img }}" id="user_img" class="user_infoimage"></img>
+                                    {% endif %}
+                                </div>
+                                <span class="comment_username">{{ reply.user_id.user_id }}</span>
+                            </div>
+                            <div class="comment_user_info">
+                                <span class="comment_post_date">{{ reply.regdate|date:'Y-m-d H:i' }}</span>
+                                {% if reply.user_id.user_id == request.session.user %}
+                                    {% if request.session.communityid == 4 %}
+                                        <form method="POST"
+                                              action="{% url 'comment_delete' request.session.communityid contentList.study_id reply.reply_id %}"
+                                              class="mt-2">
+                                        {% csrf_token %}
+                                    {% else %}
+                                        <form method="POST"
+                                              action="{% url 'comment_delete' request.session.communityid contentList.board_id reply.reply_id %}"
+                                              class="mt-2">
+                                        {% csrf_token %}
+                                    {% endif %}
+                                <!-- <button class="comment_delete"><i class="fas fa-times"></i></button> -->
+                                <button class="comment_delete">삭제</button>
+                                </form>
+                               
+                               
+                                <div class="comment_div_modal">
+                                    <div class="comment_modal_content_bg">
+                                        <div class="comment_modal_top">
+                                            <div class="comment_modal_title">댓글 수정</div>
+                                            <button id="comment_modal_delete" class="comment_modal_delete"><i
+                                                    class="fas fa-times"></i></button>
+                                        </div>
+                                        {% if request.session.communityid == 4 %}
+                                            <form method="POST"
+                                                  action="{% url 'comment_update' request.session.communityid contentList.study_id reply.reply_id %}"
+                                                  class="mt-2">
+                                            {% csrf_token %}
+                                        {% else %}
+                                            <form method="POST"
+                                                  action="{% url 'comment_update' request.session.communityid contentList.board_id reply.reply_id %}"
+                                                  class="mt-2">
+                                            {% csrf_token %}
+                                        {% endif %}
+                                        <div class="comment_modal_bg">
+                                                <textarea class="commnet"
+                                                          name="content">{{ reply.content }}</textarea>
+                                        </div>
+                                        <div class="comment_modal_btn">
+                                            <button id="modal_btn_design" class="modal_btn_design">수정</button>
+                                        </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <button id="comment_update" class="comment_update"> 수정</button>
+                                </form>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="comment_text">
+                            {{ reply.content }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <!-- <div class="test" style="text-align:center">
+
+                <nav id="paging" aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item"><a class="page-link" href="?page=1">맨 앞으로</a></li>
+                    <li class="page-item"><a class="page-link"href="?page={{ board_list.previous_page_number }}">Previous</a></li>
+                </ul>
+                </nav>
+            </div>
+       -->
+        </div>
+    </div>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+<script src="{% static 'js/community_modal.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+
+
+</body>
+</html>
